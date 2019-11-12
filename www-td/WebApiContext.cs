@@ -9,6 +9,6 @@ namespace www_td
         {
         }
 
-        public DbSet<MachineStats> MachineStats { get; set; }
+        public DbSet<machinestats> machinestats { get; set; }
     }
 }

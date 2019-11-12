@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace www_td.Models
 {
-    public class MachineStats
+    public class machinestats
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
-        public int CpuTime { get; set; }
+        public int cputime { get; set; }
     }
 }
