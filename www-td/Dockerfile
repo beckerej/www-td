@@ -3,12 +3,12 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
 WORKDIR /src
-COPY ["www-td/www-td.csproj", "www-td/"]
-RUN dotnet restore "www-td/www-td.csproj"
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
+COPY "www-td.csproj" "src/www-td/"
+WORKDIR "src/www-td"
+RUN dotnet restore "www-td.csproj"
 COPY . .
-WORKDIR "/src/www-td"
 RUN dotnet build "www-td.csproj" -c Release -o /app/build
 
 FROM build AS publish
