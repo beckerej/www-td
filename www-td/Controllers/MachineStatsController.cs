@@ -24,10 +24,10 @@ namespace www_td.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<MachineStats> Get()
+        public IEnumerable<machinestats> Get()
         {
             Console.WriteLine("Test1");
-            return _webApiContext.MachineStats.ToList();
+            return _webApiContext.machinestats.ToList();
         }
     }
 }
