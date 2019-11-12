@@ -2,11 +2,13 @@ version: '3'
 services:
     web:
         build:
-            context: ./www-td
+            context: .
             dockerfile: Dockerfile
         ports:
             - '80:80'
             - '443:443'
+        depends_on:
+            - mydb
     mydb:
         image: postgres
         volumes:
