@@ -22,7 +22,7 @@ namespace www_td.Controllers
         [HttpGet]
         public IEnumerable<machinestats> Get()
         {
-            return _webApiContext.machinestats.ToList().TakeLast(10); // take last 5 for debugging
+            return _webApiContext.machinestats.ToList();
         }
     }
 }
