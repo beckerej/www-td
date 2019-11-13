@@ -53,15 +53,15 @@ namespace www_td.MachineStatusService
             {
                 id = index,
                 machinename = Process.GetCurrentProcess().MachineName,
-                totalMemory = UnixBinaryOutputParser.GetTotalMemory(freeOutput),
-                usedMemory = UnixBinaryOutputParser.GetUsedMemory(freeOutput),
-                freeMemory = UnixBinaryOutputParser.GetFreeMemory(freeOutput),
-                sharedMemory = UnixBinaryOutputParser.GetSharedMemory(freeOutput),
-                cacheMemory = UnixBinaryOutputParser.GetCacheMemory(freeOutput),
-                availableMemory = UnixBinaryOutputParser.GetAvailableMemory(freeOutput),
-                diskUsage = UnixBinaryOutputParser.GetDiskUsage(diskOutput),
-                cpuUsage = UnixBinaryOutputParser.GetCpuUsage(cpuOutput),
-                cpuIdle = UnixBinaryOutputParser.GetCpuIdle(cpuOutput),
+                totalmemory = UnixBinaryOutputParser.GetTotalMemory(freeOutput),
+                usedmemory = UnixBinaryOutputParser.GetUsedMemory(freeOutput),
+                freememory = UnixBinaryOutputParser.GetFreeMemory(freeOutput),
+                sharedmemory = UnixBinaryOutputParser.GetSharedMemory(freeOutput),
+                cachememory = UnixBinaryOutputParser.GetCacheMemory(freeOutput),
+                availablememory = UnixBinaryOutputParser.GetAvailableMemory(freeOutput),
+                diskusage = UnixBinaryOutputParser.GetDiskUsage(diskOutput),
+                cpuusage = UnixBinaryOutputParser.GetCpuUsage(cpuOutput),
+                cpuidle = UnixBinaryOutputParser.GetCpuIdle(cpuOutput),
             };
         }
 

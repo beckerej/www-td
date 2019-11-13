@@ -54,7 +54,7 @@ namespace www_td.MachineStatusService
 
         public static float GetCpuFromIndex(IReadOnlyList<string> cpuOutput, int i)
         {
-            return float.Parse(cpuOutput[1].Split(" ", StringSplitOptions.RemoveEmptyEntries)[i]);
+            return float.Parse(cpuOutput[3].Split(" ", StringSplitOptions.RemoveEmptyEntries)[i]);
         }
 
         public static int GetFreeFromIndex(IReadOnlyList<string> freeOutput, int i)

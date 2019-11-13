@@ -7,14 +7,14 @@ namespace www_td.Database.Models
     {
         public int id { get; set; }
         public string machinename { get; set; }
-        public int totalMemory { get; set; }
-        public int usedMemory { get; set; }
-        public int freeMemory { get; set; }
-        public int sharedMemory { get; set; }
-        public int cacheMemory { get; set; }
-        public int availableMemory { get; set; }
-        public int diskUsage { get; set; }
-        public float cpuUsage { get; set; }
-        public float cpuIdle { get; set; }
+        public int totalmemory { get; set; }
+        public int usedmemory { get; set; }
+        public int freememory { get; set; }
+        public int sharedmemory { get; set; }
+        public int cachememory { get; set; }
+        public int availablememory { get; set; }
+        public int diskusage { get; set; }
+        public float cpuusage { get; set; }
+        public float cpuidle { get; set; }
     }
 }
