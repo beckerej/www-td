@@ -20,13 +20,11 @@ namespace www_td.Controllers
         {
             _webApiContext = webApiContext;
             _logger = logger;
-            Console.WriteLine("Test0");
         }
 
         [HttpGet]
         public IEnumerable<machinestats> Get()
         {
-            Console.WriteLine("Test1");
             return _webApiContext.machinestats.ToList();
         }
     }

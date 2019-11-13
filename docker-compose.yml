@@ -3,10 +3,16 @@ services:
     web:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.API
         ports:
             - '80:80'
             - '443:443'
+        depends_on:
+            - mydb
+    worker:
+        build:
+            context: .
+            dockerfile: Dockerfile.MachineStatusService
         depends_on:
             - mydb
     mydb:

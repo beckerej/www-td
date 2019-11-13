@@ -4,14 +4,17 @@ EXPOSE 443
 
 WORKDIR /src
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
+
 COPY www-td/www-td.csproj src/www-td/
 COPY www-td.Database/ src/www-td.Database/
+
 WORKDIR /src/www-td
 RUN dotnet restore "www-td.csproj"
 COPY www-td/ .
 RUN dotnet build "www-td.csproj" -c Release -o /app/build
 
 FROM build AS publish
+WORKDIR /src/www-td
 RUN dotnet publish "www-td.csproj" -c Release -o /app/publish
 
 FROM base AS final
