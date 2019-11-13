@@ -20,4 +20,7 @@ RUN dotnet publish "www-td.MachineStatusService.csproj" -c Release -o /app/publi
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+RUN apt-get update && apt-get install -y procps sysstat
+
 ENTRYPOINT "dotnet" "www-td.MachineStatusService.dll"

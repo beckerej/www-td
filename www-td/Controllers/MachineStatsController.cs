@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using www_td.Database.Models;
@@ -14,9 +11,9 @@ namespace www_td.Controllers
     public class MachineStatsController : ControllerBase
     {
         private readonly WebApiContext _webApiContext;
-        private ILogger<WeatherForecastController> _logger;
+        private ILogger<MachineStatsController> _logger;
 
-        public MachineStatsController(WebApiContext webApiContext, ILogger<WeatherForecastController> logger)
+        public MachineStatsController(WebApiContext webApiContext, ILogger<MachineStatsController> logger)
         {
             _webApiContext = webApiContext;
             _logger = logger;
@@ -25,7 +22,7 @@ namespace www_td.Controllers
         [HttpGet]
         public IEnumerable<machinestats> Get()
         {
-            return _webApiContext.machinestats.ToList();
+            return _webApiContext.machinestats.ToList().TakeLast(10); // take last 5 for debugging
         }
     }
 }

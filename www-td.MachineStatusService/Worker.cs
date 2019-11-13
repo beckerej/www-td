@@ -23,20 +23,71 @@ namespace www_td.MachineStatusService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var index = _webApiContext.machinestats.ToList().Last().id;
+            var last = _webApiContext.machinestats.ToList().LastOrDefault();
+            var index = last?.id ?? default;
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                _webApiContext.machinestats.Add(new machinestats
-                {
-                    id = ++index,
-                    cputime = Process.GetCurrentProcess().TotalProcessorTime.Seconds
-                });
-                var last = _webApiContext.machinestats.ToList().Last();
-                _logger.LogInformation($"Adding machine stat {{id: {last.id}, cpu: {last.cputime}}}");
+                var machineStats = GetMachineStats(++index);
+                _webApiContext.machinestats.Add(machineStats);
                 _webApiContext.SaveChanges();
                 await Task.Delay(1000, stoppingToken);
             }
+        }
+
+        private static machinestats GetMachineStats(int index)
+        {
+            var freeOutput = UnixBinaryOutputParser.GetOutput("free -m").Split("\n");
+            var diskOutput = UnixBinaryOutputParser.GetOutput("df").Split("\n");
+            var cpuOutput = UnixBinaryOutputParser.GetOutput("mpstat").Split("\n");
+            return CheckOutputs(freeOutput, diskOutput, cpuOutput) ? null : 
+                CreateNewMachineStats(index, freeOutput, diskOutput, cpuOutput);
+        }
+
+        private static machinestats CreateNewMachineStats(int index,
+            IReadOnlyList<string> freeOutput,
+            IReadOnlyList<string> diskOutput,
+            IReadOnlyList<string> cpuOutput)
+        {
+            return new machinestats
+            {
+                id = index,
+                machinename = Process.GetCurrentProcess().MachineName,
+                totalMemory = UnixBinaryOutputParser.GetTotalMemory(freeOutput),
+                usedMemory = UnixBinaryOutputParser.GetUsedMemory(freeOutput),
+                freeMemory = UnixBinaryOutputParser.GetFreeMemory(freeOutput),
+                sharedMemory = UnixBinaryOutputParser.GetSharedMemory(freeOutput),
+                cacheMemory = UnixBinaryOutputParser.GetCacheMemory(freeOutput),
+                availableMemory = UnixBinaryOutputParser.GetAvailableMemory(freeOutput),
+                diskUsage = UnixBinaryOutputParser.GetDiskUsage(diskOutput),
+                cpuUsage = UnixBinaryOutputParser.GetCpuUsage(cpuOutput),
+                cpuIdle = UnixBinaryOutputParser.GetCpuIdle(cpuOutput),
+            };
+        }
+
+        private static bool CheckOutputs(IReadOnlyCollection<string> freeOutput,
+            IReadOnlyCollection<string> diskOutput,
+            IReadOnlyCollection<string> cpuOutput)
+        {
+            if (freeOutput.Count == 0)
+            {
+                Console.WriteLine("Error: /bin/bash -c \"free -m\" did not produce an output.");
+                return true;
+            }
+
+            if (diskOutput.Count == 0)
+            {
+                Console.WriteLine("Error: /bin/bash -c \"df\" did not produce an output.");
+                return true;
+            }
+
+            if (cpuOutput.Count == 0)
+            {
+                Console.WriteLine("Error: /bin/bash -c \"mpstat\" did not produce an output.");
+                return true;
+            }
+
+            return false;
         }
     }
 }
