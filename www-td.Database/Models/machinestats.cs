@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace www_td.Models
+namespace www_td.Database.Models
 {
     public class machinestats
     {
@@ -11,4 +10,5 @@ namespace www_td.Models
 
         public int cputime { get; set; }
     }
+
 }

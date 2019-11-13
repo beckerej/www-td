@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using www_td.Models;
+using www_td.Database.Models;
 
 namespace www_td.Controllers
 {

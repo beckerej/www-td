@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using www_td.Models;
+using www_td.Database.Models;
 
 namespace www_td
 {
