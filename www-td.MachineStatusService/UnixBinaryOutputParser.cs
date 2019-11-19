@@ -39,7 +39,7 @@ namespace www_td.MachineStatusService
 
         public static float GetCpuUsage(IReadOnlyList<string> cpuOutput)
         {
-            return Enumerable.Range(2, 10).Sum(i => GetCpuFromIndex(cpuOutput, i));
+            return Enumerable.Range(2, 9).Sum(i => GetCpuFromIndex(cpuOutput, i));
         }
 
         public static int GetDiskUsage(IReadOnlyList<string> diskOutput)
