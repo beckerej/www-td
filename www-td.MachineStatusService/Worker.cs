@@ -32,8 +32,9 @@ namespace www_td.MachineStatusService
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                     var machineStats = GetMachineStats(++index);
                     _webApiContext.machinestats.Add(machineStats);
+                    _logger.LogInformation($"Adding {machineStats}");
                     _webApiContext.SaveChanges();
-                    await Task.Delay(1000, stoppingToken);
+                    await Task.Delay(10000, stoppingToken);
                 }
             }
             catch (Exception e)
