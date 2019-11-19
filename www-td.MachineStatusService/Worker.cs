@@ -25,13 +25,21 @@ namespace www_td.MachineStatusService
         {
             var last = _webApiContext.machinestats.ToList().LastOrDefault();
             var index = last?.id ?? default;
-            while (!stoppingToken.IsCancellationRequested)
+            try
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                var machineStats = GetMachineStats(++index);
-                _webApiContext.machinestats.Add(machineStats);
-                _webApiContext.SaveChanges();
-                await Task.Delay(1000, stoppingToken);
+                while (!stoppingToken.IsCancellationRequested)
+                {
+                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                    var machineStats = GetMachineStats(++index);
+                    _webApiContext.machinestats.Add(machineStats);
+                    _webApiContext.SaveChanges();
+                    await Task.Delay(1000, stoppingToken);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                ConsoleWriteException(e);
             }
         }
 
@@ -71,23 +79,38 @@ namespace www_td.MachineStatusService
         {
             if (freeOutput.Count == 0)
             {
-                Console.WriteLine("Error: /bin/bash -c \"free -m\" did not produce an output.");
+                ConsoleWriteError("free -m");
                 return true;
             }
 
             if (diskOutput.Count == 0)
             {
-                Console.WriteLine("Error: /bin/bash -c \"df\" did not produce an output.");
+                ConsoleWriteError("df");
                 return true;
             }
 
             if (cpuOutput.Count == 0)
             {
-                Console.WriteLine("Error: /bin/bash -c \"mpstat\" did not produce an output.");
+                ConsoleWriteError("mpstat");
                 return true;
             }
 
             return false;
+        }
+
+        private static void ConsoleWriteException(Exception e)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Exception Message: {e.Message}");
+            Console.WriteLine($"Exception StackTrace: {e.StackTrace}");
+            Console.ResetColor();
+        }
+
+        private static void ConsoleWriteError(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Error: /bin/bash -c \"{message}\" did not produce an output.");
+            Console.ResetColor();
         }
     }
 }

@@ -7,6 +7,31 @@ namespace www_td.MachineStatusService
 {
     public static class UnixBinaryOutputParser
     {
+        public static string GetOutput(string unixProgram)
+        {
+            string output;
+
+            var info = CreateProcess(unixProgram);
+
+            using (var process = Process.Start(info))
+            {
+                output = process != null ? process.StandardOutput.ReadToEnd() : string.Empty;
+            }
+
+            return output;
+
+            ProcessStartInfo CreateProcess(string unixProgramCommand)
+            {
+                var processInfo = new ProcessStartInfo(unixProgramCommand)
+                {
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"{unixProgramCommand}\"",
+                    RedirectStandardOutput = true
+                };
+                return processInfo;
+            }
+        }
+
         public static float GetCpuIdle(IReadOnlyList<string> cpuOutput)
         {
             return GetCpuFromIndex(cpuOutput, 11);
@@ -60,31 +85,6 @@ namespace www_td.MachineStatusService
         public static int GetFreeFromIndex(IReadOnlyList<string> freeOutput, int i)
         {
             return int.Parse(freeOutput[1].Split(" ", StringSplitOptions.RemoveEmptyEntries)[i]);
-        }
-
-        public static string GetOutput(string unixProgram)
-        {
-            string output;
-
-            var info = CreateProcess(unixProgram);
-
-            using (var process = Process.Start(info))
-            {
-                output = process != null ? process.StandardOutput.ReadToEnd() : string.Empty;
-            }
-
-            return output;
-        }
-
-        private static ProcessStartInfo CreateProcess(string unixProgram)
-        {
-            var info = new ProcessStartInfo(unixProgram)
-            {
-                FileName = "/bin/bash",
-                Arguments = $"-c \"{unixProgram}\"",
-                RedirectStandardOutput = true
-            };
-            return info;
         }
     }
 }
