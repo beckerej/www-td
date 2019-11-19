@@ -24,7 +24,7 @@ namespace www_td.MachineStatusService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var last = _webApiContext.machinestats.ToList().LastOrDefault();
-            var index = last?.id ?? default;
+            var index = last?.Id ?? default;
             try
             {
                 while (!stoppingToken.IsCancellationRequested)
@@ -60,17 +60,17 @@ namespace www_td.MachineStatusService
         {
             return new machinestats
             {
-                id = index,
-                machinename = Process.GetCurrentProcess().MachineName,
-                totalmemory = UnixBinaryOutputParser.GetTotalMemory(freeOutput),
-                usedmemory = UnixBinaryOutputParser.GetUsedMemory(freeOutput),
-                freememory = UnixBinaryOutputParser.GetFreeMemory(freeOutput),
-                sharedmemory = UnixBinaryOutputParser.GetSharedMemory(freeOutput),
-                cachememory = UnixBinaryOutputParser.GetCacheMemory(freeOutput),
-                availablememory = UnixBinaryOutputParser.GetAvailableMemory(freeOutput),
-                diskusage = UnixBinaryOutputParser.GetDiskUsage(diskOutput),
-                cpuusage = UnixBinaryOutputParser.GetCpuUsage(cpuOutput),
-                cpuidle = UnixBinaryOutputParser.GetCpuIdle(cpuOutput),
+                Id = index,
+                MachineName = Process.GetCurrentProcess().MachineName,
+                TotalMemory = UnixBinaryOutputParser.GetTotalMemory(freeOutput),
+                UsedMemory = UnixBinaryOutputParser.GetUsedMemory(freeOutput),
+                FreeMemory = UnixBinaryOutputParser.GetFreeMemory(freeOutput),
+                SharedMemory = UnixBinaryOutputParser.GetSharedMemory(freeOutput),
+                CacheMemory = UnixBinaryOutputParser.GetCacheMemory(freeOutput),
+                AvailableMemory = UnixBinaryOutputParser.GetAvailableMemory(freeOutput),
+                DiskUsage = UnixBinaryOutputParser.GetDiskUsage(diskOutput),
+                CpuUsage = UnixBinaryOutputParser.GetCpuUsage(cpuOutput),
+                CpuIdle = UnixBinaryOutputParser.GetCpuIdle(cpuOutput),
             };
         }
 

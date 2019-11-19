@@ -5,16 +5,16 @@ namespace www_td.Database.Models
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class machinestats
     {
-        public int id { get; set; }
-        public string machinename { get; set; }
-        public int totalmemory { get; set; }
-        public int usedmemory { get; set; }
-        public int freememory { get; set; }
-        public int sharedmemory { get; set; }
-        public int cachememory { get; set; }
-        public int availablememory { get; set; }
-        public int diskusage { get; set; }
-        public float cpuusage { get; set; }
-        public float cpuidle { get; set; }
+        public int Id { get; set; }
+        public string MachineName { get; set; }
+        public int TotalMemory { get; set; }
+        public int UsedMemory { get; set; }
+        public int FreeMemory { get; set; }
+        public int SharedMemory { get; set; }
+        public int CacheMemory { get; set; }
+        public int AvailableMemory { get; set; }
+        public int DiskUsage { get; set; }
+        public float CpuUsage { get; set; }
+        public float CpuIdle { get; set; }
     }
 }
