@@ -71,6 +71,7 @@ namespace www_td.MachineStatusService
                 DiskUsage = UnixBinaryOutputParser.GetDiskUsage(diskOutput),
                 CpuUsage = UnixBinaryOutputParser.GetCpuUsage(cpuOutput),
                 CpuIdle = UnixBinaryOutputParser.GetCpuIdle(cpuOutput),
+                DateTime = DateTime.Now
             };
         }
 

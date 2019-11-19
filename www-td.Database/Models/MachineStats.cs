@@ -1,4 +1,6 @@
-﻿namespace www_td.Database.Models
+﻿using System;
+
+namespace www_td.Database.Models
 {
     public class MachineStats
     {
@@ -13,6 +15,7 @@
         public int DiskUsage { get; set; }
         public float CpuUsage { get; set; }
         public float CpuIdle { get; set; }
+        public DateTime DateTime { get; set; }
 
         public override string ToString()
         {
@@ -26,7 +29,8 @@
                    $"{nameof(AvailableMemory)}: {AvailableMemory}, " +
                    $"{nameof(DiskUsage)}: {DiskUsage}, " +
                    $"{nameof(CpuUsage)}: {CpuUsage}, " +
-                   $"{nameof(CpuIdle)}: {CpuIdle}";
+                   $"{nameof(CpuIdle)}: {CpuIdle}, " +
+                   $"{nameof(DateTime)}: {DateTime}";
         }
     }
 }
