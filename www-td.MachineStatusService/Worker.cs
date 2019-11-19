@@ -23,7 +23,7 @@ namespace www_td.MachineStatusService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var last = _webApiContext.machinestats.ToList().LastOrDefault();
+            var last = _webApiContext.MachineStats.ToList().LastOrDefault();
             var index = last?.Id ?? default;
             try
             {
@@ -31,7 +31,7 @@ namespace www_td.MachineStatusService
                 {
                     _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                     var machineStats = GetMachineStats(++index);
-                    _webApiContext.machinestats.Add(machineStats);
+                    _webApiContext.MachineStats.Add(machineStats);
                     _logger.LogInformation($"Adding {machineStats}");
                     _webApiContext.SaveChanges();
                     await Task.Delay(10000, stoppingToken);
@@ -44,7 +44,7 @@ namespace www_td.MachineStatusService
             }
         }
 
-        private static machinestats GetMachineStats(int index)
+        private static MachineStats GetMachineStats(int index)
         {
             var freeOutput = UnixBinaryOutputParser.GetOutput("free -m").Split("\n");
             var diskOutput = UnixBinaryOutputParser.GetOutput("df").Split("\n");
@@ -53,12 +53,12 @@ namespace www_td.MachineStatusService
                 CreateNewMachineStats(index, freeOutput, diskOutput, cpuOutput);
         }
 
-        private static machinestats CreateNewMachineStats(int index,
+        private static MachineStats CreateNewMachineStats(int index,
             IReadOnlyList<string> freeOutput,
             IReadOnlyList<string> diskOutput,
             IReadOnlyList<string> cpuOutput)
         {
-            return new machinestats
+            return new MachineStats
             {
                 Id = index,
                 MachineName = Process.GetCurrentProcess().MachineName,

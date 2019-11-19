@@ -1,9 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace www_td.Database.Models
+﻿namespace www_td.Database.Models
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public class machinestats
+    public class MachineStats
     {
         public int Id { get; set; }
         public string MachineName { get; set; }
@@ -16,5 +13,20 @@ namespace www_td.Database.Models
         public int DiskUsage { get; set; }
         public float CpuUsage { get; set; }
         public float CpuIdle { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Id)}: {Id}, " +
+                   $"{nameof(MachineName)}: {MachineName}, " +
+                   $"{nameof(TotalMemory)}: {TotalMemory}, " +
+                   $"{nameof(UsedMemory)}: {UsedMemory}, " +
+                   $"{nameof(FreeMemory)}: {FreeMemory}, " +
+                   $"{nameof(SharedMemory)}: {SharedMemory}, " +
+                   $"{nameof(CacheMemory)}: {CacheMemory}, " +
+                   $"{nameof(AvailableMemory)}: {AvailableMemory}, " +
+                   $"{nameof(DiskUsage)}: {DiskUsage}, " +
+                   $"{nameof(CpuUsage)}: {CpuUsage}, " +
+                   $"{nameof(CpuIdle)}: {CpuIdle}";
+        }
     }
 }

@@ -8,6 +8,6 @@ namespace www_td.Database.Models
         {
         }
 
-        public DbSet<machinestats> machinestats { get; set; }
+        public DbSet<MachineStats> MachineStats { get; set; }
     }
 }

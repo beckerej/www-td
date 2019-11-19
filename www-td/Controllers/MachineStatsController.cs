@@ -20,9 +20,9 @@ namespace www_td.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<machinestats> Get()
+        public IEnumerable<MachineStats> Get()
         {
-            return _webApiContext.machinestats.ToList();
+            return _webApiContext.MachineStats.ToList();
         }
     }
 }
