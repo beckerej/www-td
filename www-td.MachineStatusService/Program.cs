@@ -14,12 +14,12 @@ namespace www_td.MachineStatusService
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureServices((hostContext, services) =>
-                {
-                    services.AddHostedService<Worker>();
-                    services.AddEntityFrameworkNpgsql().AddDbContext<WebApiContext>(opt =>
-                        opt.UseNpgsql(hostContext.Configuration.GetConnectionString("WebApiConnection")));
-                });
+            Host.CreateDefaultBuilder(args).ConfigureServices((hostContext, services) =>
+        {
+            services.AddHostedService<Worker>();
+            services.AddEntityFrameworkNpgsql().AddDbContext<WebApiContext>(opt =>
+                opt.UseNpgsql(hostContext.Configuration.GetConnectionString("WebApiConnection"))
+                   .UseSnakeCaseNamingConvention());
+        });
     }
 }
